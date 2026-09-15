@@ -121,7 +121,7 @@ const experiences = [
     title: "Senior Software Engineer",
     company_name: "Ancile Digital",
     icon: ancile,
-    iconBg: "#E6DEDD",
+    iconBg: "#dff6f1",
     date: "April 2025 - Present",
     points: [
       "Working as Senior Full Stack Developer deployed to Version 1 supporting International Schools Partnership (ISP), a global network.",
@@ -134,7 +134,7 @@ const experiences = [
     title: "Web Developer & Technical Mentor",
     company_name: "ByteXL",
     icon: version1,
-    iconBg: "#383E56",
+    iconBg: "#103430",
     date: "September 2023 - April 2025",
     points: [
       "Developed and maintained web applications using React.js, Next.js, and Tailwind CSS, enhancing UI/UX and mobile responsiveness.",
@@ -147,7 +147,7 @@ const experiences = [
     title: "Software Engineer",
     company_name: "LTI Mindtree",
     icon: ltimindtree,
-    iconBg: "#E6DEDD",
+    iconBg: "#dff6f1",
     date: "May 2022 - June 2023",
     points: [
       "Customized responsive website for Harvard Medical School's Educational Offerings, aligning with business and technical requirements.",
@@ -160,7 +160,7 @@ const experiences = [
     title: "Technical Mentor",
     company_name: "EdTech",
     icon: bytexl,
-    iconBg: "#383E56",
+    iconBg: "#103430",
     date: "December 2020 - May 2022",
     points: [
       "Collaborated with organizations including ICT Academy, Bizotic, JV Global, Atom, SeventhSense, and Dlithe.",

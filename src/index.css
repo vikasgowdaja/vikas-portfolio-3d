@@ -1,16 +1,42 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --app-bg: #031311;
+  --app-bg-soft: #08211f;
+  --app-panel: #0b2d2a;
+  --app-accent: #2bc7be;
+  --app-accent-soft: #98eee4;
+  --app-muted: #97cfc7;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  background: linear-gradient(180deg, #051816 0%, #031311 100%);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "Sora", sans-serif;
   scroll-behavior: smooth;
   color-scheme: dark;
+}
+
+.app-shell {
+  min-height: 100vh;
+  background: radial-gradient(circle at top left, rgba(75, 209, 198, 0.14), transparent 24%),
+    radial-gradient(circle at 82% 12%, rgba(19, 100, 86, 0.2), transparent 18%),
+    linear-gradient(180deg, var(--app-bg-soft) 0%, var(--app-bg) 54%, #020b0a 100%);
 }
 
 .hash-span {
@@ -20,96 +46,51 @@
 }
 
 .black-gradient {
-  background: #000000; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #434343,
-    #000000
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #434343,
-    #000000
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #0d3531;
+  background: -webkit-linear-gradient(to right, #15443f, #041715);
+  background: linear-gradient(to right, #15443f, #041715);
 }
 
 .violet-gradient {
-  background: #804dee;
-  background: linear-gradient(-90deg, #804dee 0%, rgba(60, 51, 80, 0) 100%);
-  background: -webkit-linear-gradient(
-    -90deg,
-    #804dee 0%,
-    rgba(60, 51, 80, 0) 100%
-  );
+  background: #2bc7be;
+  background: linear-gradient(-90deg, #2bc7be 0%, rgba(43, 199, 190, 0) 100%);
+  background: -webkit-linear-gradient(-90deg, #2bc7be 0%, rgba(43, 199, 190, 0) 100%);
 }
 
 .green-pink-gradient {
-  background: "#00cea8";
-  background: linear-gradient(90.13deg, #00cea8 1.9%, #bf61ff 97.5%);
-  background: -webkit-linear-gradient(-90.13deg, #00cea8 1.9%, #bf61ff 97.5%);
+  background: #2bc7be;
+  background: linear-gradient(90.13deg, #4bd7cc 1.9%, #0d4b43 97.5%);
+  background: -webkit-linear-gradient(-90.13deg, #4bd7cc 1.9%, #0d4b43 97.5%);
 }
 
 .orange-text-gradient {
-  background: #f12711; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to top,
-    #f12711,
-    #f5af19
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to top,
-    #f12711,
-    #f5af19
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #0f766e;
+  background: -webkit-linear-gradient(to top, #0f766e, #8ef1e6);
+  background: linear-gradient(to top, #0f766e, #8ef1e6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .green-text-gradient {
-  background: #11998e; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to top,
-    #11998e,
-    #38ef7d
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to top,
-    #11998e,
-    #38ef7d
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #0f766e;
+  background: -webkit-linear-gradient(to top, #0f766e, #5fe7d8);
+  background: linear-gradient(to top, #0f766e, #5fe7d8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .blue-text-gradient {
-  /* background: -webkit-linear-gradient(#eee, #333); */
-  background: #56ccf2; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to top,
-    #2f80ed,
-    #56ccf2
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to top,
-    #2f80ed,
-    #56ccf2
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #1d9f94;
+  background: -webkit-linear-gradient(to top, #15776e, #9ef4ea);
+  background: linear-gradient(to top, #15776e, #9ef4ea);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .pink-text-gradient {
-  background: #ec008c; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to top,
-    #ec008c,
-    #fc6767
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to top,
-    #ec008c,
-    #fc6767
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #14635b;
+  background: -webkit-linear-gradient(to top, #14635b, #4bd7cc);
+  background: linear-gradient(to top, #14635b, #4bd7cc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
