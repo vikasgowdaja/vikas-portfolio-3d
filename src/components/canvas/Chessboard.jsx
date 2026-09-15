@@ -811,7 +811,7 @@ const ChessBoard = ({ onStatusChange }) => {
   );
 };
 
-const EarthCanvas = () => {
+const ChessboardCanvas = () => {
   const [status, setStatus] = useState({
     statusLine: "White to move",
     instructionLine: "Click a piece, then a highlighted square",
@@ -863,4 +863,4 @@ const EarthCanvas = () => {
   );
 };
 
-export default EarthCanvas;
+export default ChessboardCanvas;

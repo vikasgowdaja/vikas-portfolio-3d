@@ -4,6 +4,9 @@ module.exports = {
   mode: "jit",
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Raleway", "Segoe UI", "Helvetica Neue", "Arial"],
+      },
       colors: {
         primary: "#041715",
         secondary: "#97cfc7",
