@@ -50,7 +50,8 @@ If you're getting started and need assistance or face any bugs, join our active 
 - Three.js
 - React Three Fiber
 - React Three Drei
-- Email JS
+- Express.js
+- MongoDB (Mongoose)
 - Vite
 - Tailwind CSS
 
@@ -64,7 +65,7 @@ If you're getting started and need assistance or face any bugs, join our active 
 
 👉 **Animated Projects**: Features animated project showcases using framer motion.
 
-👉 **Contact Section with 3D Earth Model**:Integrates a 3D earth model with email functionality powered by emailjs.
+👉 **Contact Section with 3D Earth Model**: Integrates a 3D canvas with a backend API that stores contact and mentorship requests in MongoDB.
 
 👉 **3D Stars**: Generate stars progressively at random positions using Three.js for background display.
 
@@ -106,20 +107,53 @@ npm install
 Create a new file named `.env` in the root of your project and add the following content:
 
 ```env
-REACT_APP_EMAILJS_USERID=your_emailjs_user_id
-REACT_APP_EMAILJS_TEMPLATEID=your_emailjs_template_id
-REACT_APP_EMAILJS_RECEIVERID=your_emailjs_receiver_id
+VITE_API_BASE_URL=http://localhost:5000
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+MONGODB_URI_DIRECT=optional_non_srv_connection_string
+DNS_SERVERS=1.1.1.1,8.8.8.8
+CLIENT_ORIGIN=http://localhost:5173
 ```
 
-Replace the placeholder values with your actual EmailJS credentials. You can obtain these credentials by signing up on the [EmailJS website](https://www.emailjs.com/).
+You can copy values from `.env.example` and replace `MONGODB_URI` with your own MongoDB Atlas/local MongoDB URL.
 
 **Running the Project**
+
+Run the backend API server:
+
+```bash
+npm run dev:server
+```
+
+In a second terminal, run the frontend:
 
 ```bash
 npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173) in your browser to view the project.
+
+### MongoDB SRV DNS issue (ECONNREFUSED querySrv)
+
+If you see an error like `querySrv ECONNREFUSED _mongodb._tcp...`, your runtime cannot resolve SRV DNS records.
+
+Use one of these fixes:
+
+1. Set `DNS_SERVERS=1.1.1.1,8.8.8.8` in `.env` and restart backend.
+2. Use Atlas direct (non-SRV) URI in `MONGODB_URI_DIRECT`.
+  - Atlas -> Database -> Connect -> Drivers -> Node.js -> Show all connection options
+  - Copy the `mongodb://host1,host2,host3/...` connection string.
+
+### Hostinger deployment note
+
+If your current Hostinger plan only serves static frontend, Node backend processes are not supported there.
+
+Recommended approach:
+
+1. Keep frontend on Hostinger static hosting.
+2. Deploy backend on a Node-friendly host (Hostinger VPS, Railway, Render, or similar).
+3. Set frontend env `VITE_API_BASE_URL` to your deployed backend URL.
+4. Set backend `CLIENT_ORIGIN` to your Hostinger frontend domain.
 
 ## <a name="snippets">🕸️ Snippets</a>
 
