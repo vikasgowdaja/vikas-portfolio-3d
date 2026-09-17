@@ -5,7 +5,7 @@ import { OrbitControls, Preload, RoundedBox, Text } from "@react-three/drei";
 
 import CanvasLoader from "../Loader";
 
-const scenePalette = {
+const baseScenePalette = {
   deskTop: "#153633",
   deskEdge: "#081715",
   deskInset: "#1d4a45",
@@ -50,10 +50,131 @@ const scenePalette = {
   headphonesAccent: "#66d8cb",
 };
 
+const scenePalettes = {
+  "rainbow-night": {
+    ...baseScenePalette,
+  },
+  "vscode-dark-plus": {
+    ...baseScenePalette,
+    deskTop: "#2f2f31",
+    deskEdge: "#212125",
+    deskInset: "#3a3b3f",
+    keycaps: "#3f4148",
+    keyAccent: "#4f8ec6",
+    screenGlow: "#72b5f0",
+    screenPrompt: "#ce9178",
+    screenText: "#d4d4d4",
+    bottleBody: "#8eb8d4",
+    phoneGlow: "#569cd6",
+    mouseWheel: "#9cdcfe",
+    headphonesAccent: "#9cdcfe",
+  },
+  "vscode-monokai": {
+    ...baseScenePalette,
+    deskTop: "#49483e",
+    deskEdge: "#2d2e28",
+    deskInset: "#5a5848",
+    keycaps: "#605e4e",
+    keyAccent: "#a6e22e",
+    screenGlow: "#66d9ef",
+    screenPrompt: "#f92672",
+    screenText: "#f8f8f2",
+    bottleBody: "#9ecf6c",
+    phoneGlow: "#fd971f",
+    mouseWheel: "#66d9ef",
+    headphonesAccent: "#fd971f",
+  },
+  "vscode-light-plus": {
+    ...baseScenePalette,
+    deskTop: "#d9e4f6",
+    deskEdge: "#b7c8e6",
+    deskInset: "#edf3ff",
+    laptopBody: "#f8fbff",
+    keyboardDeck: "#c9d9f2",
+    keyWell: "#deebfb",
+    keycaps: "#fefefe",
+    keyAccent: "#0078d4",
+    screenFrame: "#d0dcf2",
+    screenBezel: "#f8fbff",
+    screenGlow: "#7ab6f0",
+    screenPrompt: "#005bbb",
+    screenText: "#1f1f1f",
+    bottleBody: "#8ebde8",
+    mugBody: "#ffffff",
+    steam: "#9ab8d8",
+    phoneGlow: "#005bbb",
+    mouseBody: "#e6edf8",
+    mouseGrip: "#f7fbff",
+    mouseWheel: "#2978d6",
+    headphonesBand: "#9bb5d9",
+    headphonesPad: "#ffffff",
+    headphonesCup: "#dce8f9",
+    headphonesAccent: "#005bbb",
+  },
+};
+
+const sceneLighting = {
+  "rainbow-night": {
+    ambient: 0.42,
+    hemisphere: 0.36,
+    hemisphereColor: "#e8fffb",
+    groundColor: "#04110f",
+    spotIntensity: 2.2,
+    fillLeft: { color: "#9ff8ed", intensity: 0.95 },
+    fillRight: { color: "#1ca398", intensity: 0.68 },
+  },
+  "vscode-dark-plus": {
+    ambient: 0.44,
+    hemisphere: 0.34,
+    hemisphereColor: "#d6e8ff",
+    groundColor: "#151515",
+    spotIntensity: 2.1,
+    fillLeft: { color: "#9cdcfe", intensity: 0.86 },
+    fillRight: { color: "#ce9178", intensity: 0.56 },
+  },
+  "vscode-monokai": {
+    ambient: 0.46,
+    hemisphere: 0.35,
+    hemisphereColor: "#f8f8f2",
+    groundColor: "#202018",
+    spotIntensity: 2,
+    fillLeft: { color: "#66d9ef", intensity: 0.82 },
+    fillRight: { color: "#a6e22e", intensity: 0.6 },
+  },
+  "vscode-light-plus": {
+    ambient: 0.58,
+    hemisphere: 0.4,
+    hemisphereColor: "#ffffff",
+    groundColor: "#d5e2f7",
+    spotIntensity: 1.8,
+    fillLeft: { color: "#78b6f1", intensity: 0.72 },
+    fillRight: { color: "#4f8dd5", intensity: 0.5 },
+  },
+};
+
+let scenePalette = scenePalettes["rainbow-night"];
+
+export const getActiveThemeName = () => {
+  if (typeof document === "undefined") {
+    return "rainbow-night";
+  }
+
+  return document.documentElement.getAttribute("data-theme") || "rainbow-night";
+};
+
+export const applySceneTheme = (themeName) => {
+  scenePalette = scenePalettes[themeName] || scenePalettes["rainbow-night"];
+  return scenePalette;
+};
+
+export const getSceneLighting = (themeName) => {
+  return sceneLighting[themeName] || sceneLighting["rainbow-night"];
+};
+
 const deskTopY = 0;
 const supportClearance = 0.012;
 
-const screenLines = [
+const getScreenLines = () => [
   { text: "> deploy production", y: 2.24, color: scenePalette.screenPrompt },
   { text: "> docker compose up", y: 1.9, color: scenePalette.screenText },
   { text: "> npm run build", y: 1.56, color: scenePalette.screenPrompt },
@@ -242,7 +363,7 @@ const DeveloperScreen = () => {
         <boxGeometry args={[4, 0.18, 0.01]} />
         <meshStandardMaterial color='#133230' roughness={0.4} metalness={0.12} />
       </mesh>
-      {screenLines.map((line) => (
+      {getScreenLines().map((line) => (
         <Text
           key={line.text}
           position={[-1.74, line.y, 0.09]}
@@ -652,21 +773,23 @@ const DeskScene = ({ isMobile }) => {
   );
 };
 
-const LaptopScene = ({ isMobile }) => {
+const LaptopScene = ({ isMobile, themeName }) => {
+  const lights = getSceneLighting(themeName);
+
   return (
     <group>
-      <ambientLight intensity={0.42} />
-      <hemisphereLight intensity={0.36} color='#e8fffb' groundColor='#04110f' />
+      <ambientLight intensity={lights.ambient} />
+      <hemisphereLight intensity={lights.hemisphere} color={lights.hemisphereColor} groundColor={lights.groundColor} />
       <spotLight
         position={[13, 16, 11]}
         angle={0.34}
         penumbra={0.8}
-        intensity={2.2}
+        intensity={lights.spotIntensity}
         castShadow
         shadow-mapSize={2048}
       />
-      <pointLight position={[-7, 4.6, 7]} intensity={0.95} color='#9ff8ed' />
-      <pointLight position={[7, 5.1, -6]} intensity={0.68} color='#1ca398' />
+      <pointLight position={[-7, 4.6, 7]} intensity={lights.fillLeft.intensity} color={lights.fillLeft.color} />
+      <pointLight position={[7, 5.1, -6]} intensity={lights.fillRight.intensity} color={lights.fillRight.color} />
       <DeskScene isMobile={isMobile} />
     </group>
   );
@@ -674,6 +797,7 @@ const LaptopScene = ({ isMobile }) => {
 
 const LaptopCanvas = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [themeName, setThemeName] = useState(() => getActiveThemeName());
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 500px)");
@@ -690,6 +814,30 @@ const LaptopCanvas = () => {
       mediaQuery.removeEventListener("change", handleMediaQueryChange);
     };
   }, []);
+
+  useEffect(() => {
+    const syncTheme = () => {
+      setThemeName(getActiveThemeName());
+    };
+
+    const observer = new MutationObserver(() => {
+      syncTheme();
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
+    window.addEventListener("portfolio-theme-change", syncTheme);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("portfolio-theme-change", syncTheme);
+    };
+  }, []);
+
+  applySceneTheme(themeName);
 
   return (
     <Canvas
@@ -712,7 +860,7 @@ const LaptopCanvas = () => {
           minPolarAngle={Math.PI / 3.2}
           maxPolarAngle={Math.PI / 1.9}
         />
-        <LaptopScene isMobile={isMobile} />
+        <LaptopScene isMobile={isMobile} themeName={themeName} />
       </Suspense>
 
       <Preload all />

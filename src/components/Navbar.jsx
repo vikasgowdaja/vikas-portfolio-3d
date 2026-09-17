@@ -22,6 +22,7 @@ const Navbar = () => {
   const applyTheme = (nextTheme) => {
     document.documentElement.setAttribute("data-theme", nextTheme);
     window.localStorage.setItem("portfolio-theme", nextTheme);
+    window.dispatchEvent(new CustomEvent("portfolio-theme-change", { detail: { theme: nextTheme } }));
     setTheme(nextTheme);
   };
 

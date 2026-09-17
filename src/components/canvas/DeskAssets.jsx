@@ -1,4 +1,4 @@
-import React, { Suspense, useRef } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload } from "@react-three/drei";
 
@@ -13,20 +13,50 @@ import {
   PenModel,
   PhoneModel,
   WaterBottleModel,
+  applySceneTheme,
+  getActiveThemeName,
+  getSceneLighting,
 } from "./Laptop";
 
-const PreviewLights = () => {
+const PreviewLights = ({ lights }) => {
   return (
     <>
-      <ambientLight intensity={0.48} />
-      <hemisphereLight intensity={0.32} color='#e8fffb' groundColor='#04110f' />
-      <spotLight position={[8, 10, 8]} angle={0.4} penumbra={0.7} intensity={1.8} castShadow shadow-mapSize={1024} />
-      <pointLight position={[-4, 3, 4]} intensity={0.6} color='#9ff8ed' />
+      <ambientLight intensity={lights.ambient + 0.04} />
+      <hemisphereLight intensity={lights.hemisphere} color={lights.hemisphereColor} groundColor={lights.groundColor} />
+      <spotLight position={[8, 10, 8]} angle={0.4} penumbra={0.7} intensity={Math.max(1.4, lights.spotIntensity - 0.3)} castShadow shadow-mapSize={1024} />
+      <pointLight position={[-4, 3, 4]} intensity={Math.max(0.48, lights.fillLeft.intensity - 0.2)} color={lights.fillLeft.color} />
     </>
   );
 };
 
 const PreviewCanvas = ({ camera, target, children }) => {
+  const [themeName, setThemeName] = useState(() => getActiveThemeName());
+
+  useEffect(() => {
+    const syncTheme = () => {
+      setThemeName(getActiveThemeName());
+    };
+
+    const observer = new MutationObserver(() => {
+      syncTheme();
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
+    window.addEventListener("portfolio-theme-change", syncTheme);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("portfolio-theme-change", syncTheme);
+    };
+  }, []);
+
+  applySceneTheme(themeName);
+  const lights = getSceneLighting(themeName);
+
   return (
     <Canvas
       frameloop='always'
@@ -37,7 +67,7 @@ const PreviewCanvas = ({ camera, target, children }) => {
     >
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls enablePan={false} enableZoom={false} target={target} minPolarAngle={Math.PI / 4} maxPolarAngle={Math.PI / 1.8} />
-        <PreviewLights />
+        <PreviewLights lights={lights} />
         {children}
       </Suspense>
       <Preload all />
