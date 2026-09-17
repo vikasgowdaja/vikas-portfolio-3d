@@ -4,14 +4,81 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { styles } from "../styles";
 import { fadeIn, textVariant } from "../utils/motion";
-import { ChessboardCanvas, LaptopCanvas } from "./canvas";
+import {
+  BottleCanvas,
+  ChessboardCanvas,
+  DeskOnlyCanvas,
+  HeadphonesOnlyCanvas,
+  LaptopOnlyCanvas,
+  MouseCanvas,
+  MugOnlyCanvas,
+  NotebookCanvas,
+  PenCanvas,
+  PhoneOnlyCanvas,
+} from "./canvas";
 
 const MODEL_LIBRARY = [
   {
     id: "laptop",
     name: "Laptop",
     category: "Core",
-    description: "Primary workstation model",
+    description: "Primary workstation with integrated screen",
+    kind: "3d",
+  },
+  {
+    id: "desk",
+    name: "Desk",
+    category: "Furniture",
+    description: "Desk base and inset platform",
+    kind: "3d",
+  },
+  {
+    id: "notebook",
+    name: "Notebook",
+    category: "Accessory",
+    description: "Book stack prop",
+    kind: "3d",
+  },
+  {
+    id: "pen",
+    name: "Pen",
+    category: "Accessory",
+    description: "Standalone pen model",
+    kind: "3d",
+  },
+  {
+    id: "mug",
+    name: "Coffee Mug",
+    category: "Accessory",
+    description: "Mug with animated steam",
+    kind: "3d",
+  },
+  {
+    id: "bottle",
+    name: "Water Bottle",
+    category: "Accessory",
+    description: "Glass bottle desk prop",
+    kind: "3d",
+  },
+  {
+    id: "phone",
+    name: "Phone",
+    category: "Accessory",
+    description: "Smartphone with glowing display",
+    kind: "3d",
+  },
+  {
+    id: "mouse",
+    name: "Mouse",
+    category: "Accessory",
+    description: "Standalone desk mouse model",
+    kind: "3d",
+  },
+  {
+    id: "headphones",
+    name: "Headphones",
+    category: "Accessory",
+    description: "Over-ear headset model",
     kind: "3d",
   },
   {
@@ -21,39 +88,31 @@ const MODEL_LIBRARY = [
     description: "Interactive board prop",
     kind: "3d",
   },
-  {
-    id: "table",
-    name: "Table",
-    category: "Furniture",
-    description: "Scene base for assembly",
-    kind: "asset",
-  },
-  {
-    id: "mouse",
-    name: "Mouse",
-    category: "Accessory",
-    description: "Desk pointing device",
-    kind: "asset",
-  },
-  {
-    id: "headphones",
-    name: "Headphones",
-    category: "Accessory",
-    description: "Audio setup element",
-    kind: "asset",
-  },
 ];
 
 const MODEL_COMPONENTS = {
-  laptop: LaptopCanvas,
+  laptop: LaptopOnlyCanvas,
+  desk: DeskOnlyCanvas,
+  notebook: NotebookCanvas,
+  pen: PenCanvas,
+  mug: MugOnlyCanvas,
+  bottle: BottleCanvas,
+  phone: PhoneOnlyCanvas,
+  mouse: MouseCanvas,
+  headphones: HeadphonesOnlyCanvas,
   chessboard: ChessboardCanvas,
 };
 
 const DEFAULT_LAYOUT = {
-  table: { x: 48, y: 72 },
+  desk: { x: 50, y: 72 },
   laptop: { x: 43, y: 48 },
-  mouse: { x: 64, y: 54 },
-  headphones: { x: 30, y: 57 },
+  notebook: { x: 30, y: 56 },
+  pen: { x: 34, y: 60 },
+  mug: { x: 58, y: 56 },
+  bottle: { x: 66, y: 46 },
+  phone: { x: 38, y: 66 },
+  mouse: { x: 60, y: 62 },
+  headphones: { x: 26, y: 46 },
   chessboard: { x: 52, y: 35 },
 };
 
@@ -65,10 +124,10 @@ const Studio = () => {
   const [activeModelId, setActiveModelId] = useState(modelId || "laptop");
   const [placedItems, setPlacedItems] = useState(() => [
     {
-      instanceId: `seed-table-${Date.now()}`,
-      modelId: "table",
-      x: DEFAULT_LAYOUT.table.x,
-      y: DEFAULT_LAYOUT.table.y,
+      instanceId: `seed-desk-${Date.now()}`,
+      modelId: "desk",
+      x: DEFAULT_LAYOUT.desk.x,
+      y: DEFAULT_LAYOUT.desk.y,
     },
   ]);
   const [dragPayload, setDragPayload] = useState(null);
@@ -175,7 +234,7 @@ const Studio = () => {
     setPlacedItems([]);
   };
 
-  const ActiveModelCanvas = MODEL_COMPONENTS[activeModel.id] || null;
+  const ActiveModelCanvas = MODEL_COMPONENTS[activeModel.id] || LaptopOnlyCanvas;
 
   return (
     <section className={`${styles.padding} max-w-7xl mx-auto relative z-0 pt-28`}>
@@ -196,10 +255,16 @@ const Studio = () => {
           /studio/laptop
         </Link>
         {" "}
+        ,
+        {" "}
+        <Link to='/studio/mouse' className='text-white-100 underline underline-offset-4'>
+          /studio/mouse
+        </Link>
+        {" "}
         or
         {" "}
-        <Link to='/studio/chessboard' className='text-white-100 underline underline-offset-4'>
-          /studio/chessboard
+        <Link to='/studio/phone' className='text-white-100 underline underline-offset-4'>
+          /studio/phone
         </Link>
         .
       </motion.p>
@@ -267,15 +332,7 @@ const Studio = () => {
             </div>
 
             <div className='mt-5 rounded-xl bg-black-200 h-[360px] overflow-hidden border border-white/10'>
-              {ActiveModelCanvas ? (
-                <ActiveModelCanvas />
-              ) : (
-                <div className='h-full w-full flex items-center justify-center px-6 text-center'>
-                  <p className='text-secondary leading-7'>
-                    This model is currently represented as a library asset. You can still place it on the assembly board and combine it with 3D models.
-                  </p>
-                </div>
-              )}
+              <ActiveModelCanvas />
             </div>
           </div>
 

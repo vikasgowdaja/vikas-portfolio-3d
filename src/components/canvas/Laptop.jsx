@@ -41,6 +41,13 @@ const scenePalette = {
   phoneGlow: "#52d7cb",
   phoneGlass: "#d9ffff",
   phoneCamera: "#0b1211",
+  mouseBody: "#111e1d",
+  mouseGrip: "#244a46",
+  mouseWheel: "#7ce4d8",
+  headphonesBand: "#1a3d39",
+  headphonesPad: "#d9ece8",
+  headphonesCup: "#0c1817",
+  headphonesAccent: "#66d8cb",
 };
 
 const deskTopY = 0;
@@ -252,7 +259,7 @@ const DeveloperScreen = () => {
   );
 };
 
-const Laptop = () => {
+export const LaptopModel = () => {
   return (
     <group position={[0.2, deskTopY, -0.28]}>
       <mesh castShadow receiveShadow position={[0, 0.08, 0]}>
@@ -298,7 +305,7 @@ const Laptop = () => {
   );
 };
 
-const WaterBottle = ({ supportRef }) => {
+export const WaterBottleModel = ({ supportRef }) => {
   return (
     <ContactAlignedGroup supportRef={supportRef} supportY={deskTopY} position={[4.9, 0, -0.95]} rotation={[0, 0.08, 0]}>
       <group>
@@ -387,32 +394,25 @@ const PenGeometry = () => {
   );
 };
 
-const NotebookWithPen = () => {
-  const notebookRef = useRef(null);
-  const [bookTopY, setBookTopY] = useState(0);
-
+export const NotebookModel = ({ supportRef }) => {
   return (
-    <group ref={notebookRef} position={[-4.02, 0, 1.38]} rotation={[0, 0.18, 0]}>
-      <ContactAlignedGroup
-        supportRef={notebookRef}
-        supportY={deskTopY}
-        onBoundsChange={({ maxY }) => {
-          setBookTopY((currentTop) => (Math.abs(currentTop - maxY) < 0.0005 ? currentTop : maxY));
-        }}
-      >
-        <BookGeometry />
-      </ContactAlignedGroup>
-      <ContactAlignedGroup
-        supportRef={notebookRef}
-        supportY={bookTopY}
-        clearance={0.008}
-        position={[0.12, 0, -0.02]}
-        rotation={[0.14, 0.2, 0.98]}
-        dependencies={[bookTopY]}
-      >
-        <PenGeometry />
-      </ContactAlignedGroup>
-    </group>
+    <ContactAlignedGroup supportRef={supportRef} supportY={deskTopY} position={[-4.02, 0, 1.38]} rotation={[0, 0.18, 0]}>
+      <BookGeometry />
+    </ContactAlignedGroup>
+  );
+};
+
+export const PenModel = ({ supportRef }) => {
+  return (
+    <ContactAlignedGroup
+      supportRef={supportRef}
+      supportY={deskTopY}
+      clearance={0.008}
+      position={[-3.82, 0, 1.02]}
+      rotation={[0.14, 0.2, 0.98]}
+    >
+      <PenGeometry />
+    </ContactAlignedGroup>
   );
 };
 
@@ -480,7 +480,7 @@ const Steam = () => {
   );
 };
 
-const CoffeeMug = ({ supportRef }) => {
+export const CoffeeMugModel = ({ supportRef }) => {
   return (
     <ContactAlignedGroup supportRef={supportRef} supportY={deskTopY} position={[-2.5, 0, 1.62]} rotation={[0, -0.08, 0]}>
       <group>
@@ -535,7 +535,7 @@ const PhoneGeometry = () => {
   );
 };
 
-const Phone = ({ supportRef }) => {
+export const PhoneModel = ({ supportRef }) => {
   return (
     <ContactAlignedGroup supportRef={supportRef} supportY={deskTopY} position={[4.12, 0, 1.62]} rotation={[0.08, 0.34, 0.16]}>
       <PhoneGeometry />
@@ -543,14 +543,77 @@ const Phone = ({ supportRef }) => {
   );
 };
 
-const DeskScene = ({ isMobile }) => {
-  const deskSceneRef = useRef(null);
-  const scale = isMobile ? 0.56 : 0.8;
-  const position = isMobile ? [0, -3.85, -0.75] : [3.25, -3.92, -1.35];
-  const rotation = isMobile ? [0.03, -0.12, -0.01] : [0.03, -0.28, -0.01];
-
+const MouseGeometry = () => {
   return (
-    <group ref={deskSceneRef} scale={scale} position={position} rotation={rotation}>
+    <group>
+      <RoundedBox args={[0.82, 0.22, 1.2]} radius={0.25} smoothness={5} position={[0, 0.11, 0]} castShadow receiveShadow>
+        <meshStandardMaterial color={scenePalette.mouseBody} metalness={0.24} roughness={0.26} />
+      </RoundedBox>
+      <RoundedBox args={[0.74, 0.08, 0.84]} radius={0.19} smoothness={4} position={[0, 0.19, -0.05]}>
+        <meshStandardMaterial color={scenePalette.mouseGrip} metalness={0.12} roughness={0.34} />
+      </RoundedBox>
+      <mesh castShadow receiveShadow position={[0, 0.22, -0.3]}>
+        <boxGeometry args={[0.04, 0.06, 0.18]} />
+        <meshStandardMaterial color={scenePalette.mouseWheel} emissive={scenePalette.mouseWheel} emissiveIntensity={0.12} metalness={0.24} roughness={0.2} />
+      </mesh>
+      <mesh position={[0, 0.2, -0.04]}>
+        <boxGeometry args={[0.02, 0.012, 0.78]} />
+        <meshStandardMaterial color='#0a1211' metalness={0.08} roughness={0.46} />
+      </mesh>
+    </group>
+  );
+};
+
+export const MouseModel = ({ supportRef }) => {
+  return (
+    <ContactAlignedGroup supportRef={supportRef} supportY={deskTopY} position={[2.18, 0, 1.26]} rotation={[0.02, -0.44, 0.02]}>
+      <MouseGeometry />
+    </ContactAlignedGroup>
+  );
+};
+
+const HeadphonesGeometry = () => {
+  return (
+    <group>
+      <mesh castShadow receiveShadow position={[0, 0.7, 0]}>
+        <torusGeometry args={[0.62, 0.08, 14, 38, Math.PI]} />
+        <meshStandardMaterial color={scenePalette.headphonesBand} metalness={0.24} roughness={0.28} />
+      </mesh>
+      <mesh castShadow receiveShadow position={[-0.56, 0.34, 0]}>
+        <cylinderGeometry args={[0.22, 0.22, 0.36, 24]} />
+        <meshStandardMaterial color={scenePalette.headphonesCup} metalness={0.3} roughness={0.22} />
+      </mesh>
+      <mesh castShadow receiveShadow position={[0.56, 0.34, 0]}>
+        <cylinderGeometry args={[0.22, 0.22, 0.36, 24]} />
+        <meshStandardMaterial color={scenePalette.headphonesCup} metalness={0.3} roughness={0.22} />
+      </mesh>
+      <mesh position={[-0.56, 0.34, 0.13]}>
+        <cylinderGeometry args={[0.13, 0.13, 0.08, 18]} />
+        <meshStandardMaterial color={scenePalette.headphonesPad} metalness={0.08} roughness={0.56} />
+      </mesh>
+      <mesh position={[0.56, 0.34, 0.13]}>
+        <cylinderGeometry args={[0.13, 0.13, 0.08, 18]} />
+        <meshStandardMaterial color={scenePalette.headphonesPad} metalness={0.08} roughness={0.56} />
+      </mesh>
+      <mesh position={[0, 0.72, 0.04]}>
+        <torusGeometry args={[0.5, 0.018, 10, 32, Math.PI]} />
+        <meshStandardMaterial color={scenePalette.headphonesAccent} emissive={scenePalette.headphonesAccent} emissiveIntensity={0.08} metalness={0.14} roughness={0.24} />
+      </mesh>
+    </group>
+  );
+};
+
+export const HeadphonesModel = ({ supportRef }) => {
+  return (
+    <ContactAlignedGroup supportRef={supportRef} supportY={deskTopY} position={[-1.52, 0, -1.22]} rotation={[0, 0.52, 0]}>
+      <HeadphonesGeometry />
+    </ContactAlignedGroup>
+  );
+};
+
+export const DeskBaseModel = () => {
+  return (
+    <>
       <mesh castShadow receiveShadow position={[0, -0.18, 0]}>
         <boxGeometry args={[13.2, 0.36, 7.1]} />
         <meshStandardMaterial color={scenePalette.deskTop} metalness={0.22} roughness={0.56} />
@@ -563,12 +626,28 @@ const DeskScene = ({ isMobile }) => {
         <boxGeometry args={[3.9, 0.02, 1.96]} />
         <meshStandardMaterial color={scenePalette.deskInset} metalness={0.08} roughness={0.54} />
       </mesh>
+    </>
+  );
+};
 
-      <Laptop />
-      <WaterBottle supportRef={deskSceneRef} />
-      <NotebookWithPen />
-      <CoffeeMug supportRef={deskSceneRef} />
-      <Phone supportRef={deskSceneRef} />
+const DeskScene = ({ isMobile }) => {
+  const deskSceneRef = useRef(null);
+  const scale = isMobile ? 0.56 : 0.8;
+  const position = isMobile ? [0, -3.85, -0.75] : [3.25, -3.92, -1.35];
+  const rotation = isMobile ? [0.03, -0.12, -0.01] : [0.03, -0.28, -0.01];
+
+  return (
+    <group ref={deskSceneRef} scale={scale} position={position} rotation={rotation}>
+      <DeskBaseModel />
+
+      <LaptopModel />
+      <WaterBottleModel supportRef={deskSceneRef} />
+      <NotebookModel supportRef={deskSceneRef} />
+      <PenModel supportRef={deskSceneRef} />
+      <CoffeeMugModel supportRef={deskSceneRef} />
+      <PhoneModel supportRef={deskSceneRef} />
+      <MouseModel supportRef={deskSceneRef} />
+      <HeadphonesModel supportRef={deskSceneRef} />
     </group>
   );
 };
