@@ -60,7 +60,30 @@ const startServer = async () => {
       console.log(`Server listening on port ${port}`);
     });
   } catch (error) {
-    if (error.code === "ECONNREFUSED" && mongoUri?.startsWith("mongodb+srv://")) {
+    const isSrvDnsError =
+      error.code === "ECONNREFUSED" &&
+      error.syscall === "querySrv" &&
+      mongoUri?.startsWith("mongodb+srv://");
+
+    if (isSrvDnsError && mongoUriDirect) {
+      try {
+        console.warn("SRV DNS lookup failed, retrying with MONGODB_URI_DIRECT.");
+
+        await mongoose.connect(mongoUriDirect, {
+          serverSelectionTimeoutMS: 10000,
+        });
+        console.log("MongoDB connected via direct URI fallback");
+
+        app.listen(port, () => {
+          console.log(`Server listening on port ${port}`);
+        });
+        return;
+      } catch (fallbackError) {
+        console.error("Direct URI fallback also failed:", fallbackError);
+      }
+    }
+
+    if (isSrvDnsError) {
       console.error(
         "MongoDB SRV DNS lookup failed. Use MONGODB_URI_DIRECT from Atlas 'Drivers > Node.js > Show all connection options' or set DNS_SERVERS=1.1.1.1,8.8.8.8."
       );
