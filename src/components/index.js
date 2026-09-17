@@ -7,6 +7,7 @@ import Experience from "./Experience";
 import Works from "./Works";
 import Contact from "./Contact";
 import Blog from "./Blog";
+import Studio from "./Studio";
 import CanvasLoader from "./Loader";
 
 
@@ -18,6 +19,7 @@ export {
   Experience,
   Works,
   Blog,
+  Studio,
   Contact,
   CanvasLoader,
   ChessboardCanvas, 

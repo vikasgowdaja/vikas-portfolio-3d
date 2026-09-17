@@ -6,10 +6,29 @@ import { styles } from "../styles";
 import { navLinks } from "../constants";
 import { logo, menu, close } from "../assets";
 
+const themeOptions = [
+  { value: "rainbow-night", label: "Black Rainbow" },
+  { value: "vscode-dark-plus", label: "Dark+" },
+  { value: "vscode-monokai", label: "Monokai" },
+  { value: "vscode-light-plus", label: "Light+" },
+];
+
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [theme, setTheme] = useState("rainbow-night");
   const location = useLocation();
+
+  const applyTheme = (nextTheme) => {
+    document.documentElement.setAttribute("data-theme", nextTheme);
+    window.localStorage.setItem("portfolio-theme", nextTheme);
+    setTheme(nextTheme);
+  };
+
+  useEffect(() => {
+    const storedTheme = window.localStorage.getItem("portfolio-theme") || "rainbow-night";
+    applyTheme(storedTheme);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,18 +68,33 @@ const Navbar = () => {
           </p>
         </Link>
 
-        <ul className='list-none hidden sm:flex flex-row gap-10'>
-          {navLinks.map((nav) => (
-            <li
-              key={nav.id}
-              className={`${
-                location.pathname === nav.path ? "text-white" : "text-secondary"
-              } hover:text-white text-[18px] font-medium cursor-pointer`}
-            >
-              <Link to={nav.path}>{nav.title}</Link>
-            </li>
-          ))}
-        </ul>
+        <div className='hidden sm:flex items-center gap-6'>
+          <ul className='list-none flex flex-row gap-8'>
+            {navLinks.map((nav) => (
+              <li
+                key={nav.id}
+                className={`${
+                  location.pathname === nav.path ? "text-white-100" : "text-secondary"
+                } hover:text-white-100 text-[18px] font-medium cursor-pointer`}
+              >
+                <Link to={nav.path}>{nav.title}</Link>
+              </li>
+            ))}
+          </ul>
+
+          <select
+            value={theme}
+            onChange={(event) => applyTheme(event.target.value)}
+            className='bg-tertiary text-white-100 border border-white/20 rounded-lg px-3 py-2 text-sm outline-none'
+            aria-label='Select theme'
+          >
+            {themeOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <div className='sm:hidden flex flex-1 justify-end items-center'>
           <img
@@ -76,6 +110,20 @@ const Navbar = () => {
             } p-6 black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}
           >
             <ul className='list-none flex justify-end items-start flex-1 flex-col gap-4'>
+              <li className='w-full'>
+                <select
+                  value={theme}
+                  onChange={(event) => applyTheme(event.target.value)}
+                  className='w-full bg-tertiary text-white-100 border border-white/20 rounded-lg px-3 py-2 text-sm outline-none'
+                  aria-label='Select theme'
+                >
+                  {themeOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </li>
               {navLinks.map((nav) => (
                 <li
                   key={nav.id}

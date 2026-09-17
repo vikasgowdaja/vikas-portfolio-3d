@@ -59,6 +59,11 @@ export const navLinks = [
     path: "/blog",
   },
   {
+    id: "studio",
+    title: "Studio",
+    path: "/studio",
+  },
+  {
     id: "contact",
     title: "Contact",
     path: "/contact",

@@ -8,12 +8,12 @@ module.exports = {
         sans: ["Raleway", "Segoe UI", "Helvetica Neue", "Arial"],
       },
       colors: {
-        primary: "#041715",
-        secondary: "#97cfc7",
-        tertiary: "#0b2d2a",
-        "black-100": "#08221f",
-        "black-200": "#051412",
-        "white-100": "#dff6f1",
+        primary: "rgb(var(--color-primary) / <alpha-value>)",
+        secondary: "rgb(var(--color-secondary) / <alpha-value>)",
+        tertiary: "rgb(var(--color-tertiary) / <alpha-value>)",
+        "black-100": "rgb(var(--color-black-100) / <alpha-value>)",
+        "black-200": "rgb(var(--color-black-200) / <alpha-value>)",
+        "white-100": "rgb(var(--color-white-100) / <alpha-value>)",
       },
       boxShadow: {
         card: "0px 35px 120px -15px rgba(7, 34, 31, 0.55)",

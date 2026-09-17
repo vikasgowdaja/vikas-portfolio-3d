@@ -1,7 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
 
-import { About, Blog, Contact, Experience, Hero, Navbar, Tech, Works } from "./components";
+import { About, Blog, Contact, Experience, Hero, Navbar, Studio, Tech, Works } from "./components";
 
 const App = () => {
   return (
@@ -12,7 +12,7 @@ const App = () => {
           <Route
             path='/'
             element={
-              <div className='bg-hero-pattern bg-cover bg-no-repeat bg-center border-b border-white/5'>
+              <div className='hero-shell'>
                 <Hero />
               </div>
             }
@@ -22,6 +22,8 @@ const App = () => {
           <Route path='/tech' element={<Tech />} />
           <Route path='/work' element={<Works />} />
           <Route path='/blog' element={<Blog />} />
+          <Route path='/studio' element={<Studio />} />
+          <Route path='/studio/:modelId' element={<Studio />} />
           <Route
             path='/contact'
             element={
