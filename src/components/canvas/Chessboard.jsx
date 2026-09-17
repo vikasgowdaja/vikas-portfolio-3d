@@ -818,17 +818,17 @@ const ChessboardCanvas = () => {
   });
 
   return (
-    <div className='relative h-full w-full'>
+    <div className='relative h-full w-full overflow-hidden rounded-2xl'>
       <Canvas
         shadows
         frameloop='demand'
         dpr={[1, 2]}
         gl={{ preserveDrawingBuffer: true }}
         camera={{
-          fov: 35,
+          fov: 40,
           near: 0.1,
           far: 200,
-          position: [6.8, 5.4, 6.8],
+          position: [8.8, 6.9, 8.8],
         }}
       >
         <Suspense fallback={<CanvasLoader />}>
@@ -844,8 +844,8 @@ const ChessboardCanvas = () => {
           <pointLight position={[-4, 3, -4]} intensity={0.45} color='#2bc7be' />
           <OrbitControls
             enablePan={false}
-            minDistance={6.5}
-            maxDistance={11}
+            minDistance={8}
+            maxDistance={14}
             maxPolarAngle={Math.PI / 2.15}
             minPolarAngle={Math.PI / 4}
           />
@@ -855,7 +855,7 @@ const ChessboardCanvas = () => {
         </Suspense>
       </Canvas>
 
-      <div className='pointer-events-none absolute left-4 bottom-4 max-w-[250px] rounded-2xl border border-[#97cfc733] bg-[#041715cc] px-4 py-3 backdrop-blur-sm'>
+      <div className='pointer-events-none absolute left-4 bottom-4 max-w-[65%] rounded-2xl border border-[#97cfc733] bg-[#041715cc] px-4 py-3 backdrop-blur-sm'>
         <p className='text-sm font-semibold text-[#eefbf9]'>{status.statusLine}</p>
         <p className='mt-1 text-xs leading-5 text-[#9dd9d2]'>{status.instructionLine}</p>
       </div>
