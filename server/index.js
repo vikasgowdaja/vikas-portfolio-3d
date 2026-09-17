@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import { promisify } from "node:util";
+import blogRoutes from "./routes/blogRoutes.js";
 import contactRoutes from "./routes/contactRoutes.js";
 
 dotenv.config();
@@ -45,6 +46,7 @@ app.get("/api/health", (_, res) => {
   res.status(200).json({ success: true, message: "API is running" });
 });
 
+app.use("/api/blogs", blogRoutes);
 app.use("/api/contact", contactRoutes);
 
 const startHttpServer = () => {

@@ -65,6 +65,8 @@ If you're getting started and need assistance or face any bugs, join our active 
 
 👉 **Animated Projects**: Features animated project showcases using framer motion.
 
+👉 **Category-Based Blog**: Publish blog posts with categories and render them for visitors with category filtering.
+
 👉 **Contact Section with 3D Earth Model**: Integrates a 3D canvas with a backend API that stores contact and mentorship requests in MongoDB.
 
 👉 **3D Stars**: Generate stars progressively at random positions using Three.js for background display.
@@ -132,6 +134,24 @@ npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173) in your browser to view the project.
+
+### Blog API endpoints
+
+- `POST /api/blogs` create and publish a post
+- `GET /api/blogs` fetch all published posts
+- `GET /api/blogs?category=React` fetch posts by category
+
+Sample payload for creating a post:
+
+```json
+{
+  "title": "How to Learn MERN in 2026",
+  "category": "MERN",
+  "summary": "A practical roadmap to learn MERN with projects.",
+  "content": "Step 1...",
+  "author": "Vikas Gowda"
+}
+```
 
 ### MongoDB SRV DNS issue (ECONNREFUSED querySrv)
 
