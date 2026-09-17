@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
@@ -12,6 +12,81 @@ const themeOptions = [
   { value: "vscode-monokai", label: "Monokai" },
   { value: "vscode-light-plus", label: "Light+" },
 ];
+
+const ThemeMenu = ({ theme, onChange, fullWidth = false }) => {
+  const [open, setOpen] = useState(false);
+  const menuRef = useRef(null);
+  const activeTheme = themeOptions.find((option) => option.value === theme) || themeOptions[0];
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
+
+  return (
+    <div ref={menuRef} className={`relative ${fullWidth ? "w-full" : "w-[182px]"}`}>
+      <button
+        type='button'
+        onClick={() => setOpen((current) => !current)}
+        aria-haspopup='menu'
+        aria-expanded={open}
+        className={`w-full group flex items-center justify-between rounded-xl px-4 py-2.5 text-sm font-medium transition-all ${
+          open
+            ? "bg-tertiary/95 text-white-100 ring-1 ring-white/30"
+            : "bg-tertiary/80 text-white-100 hover:bg-tertiary ring-1 ring-white/15 hover:ring-white/25"
+        } backdrop-blur-md`}
+      >
+        <span className='tracking-[0.01em]'>{activeTheme.label}</span>
+        <span className={`text-[10px] transition-transform duration-200 ${open ? "rotate-180" : ""}`}>▼</span>
+      </button>
+
+      {open && (
+        <div className='absolute right-0 mt-2 w-full overflow-hidden rounded-xl border border-white/15 bg-black-100/95 backdrop-blur-xl shadow-[0_18px_44px_rgba(0,0,0,0.35)] z-40'>
+          {themeOptions.map((option) => {
+            const isActive = option.value === theme;
+
+            return (
+              <button
+                key={option.value}
+                type='button'
+                role='menuitemradio'
+                aria-checked={isActive}
+                onClick={() => {
+                  onChange(option.value);
+                  setOpen(false);
+                }}
+                className={`w-full px-4 py-2.5 text-left text-[15px] transition-colors ${
+                  isActive
+                    ? "bg-white/15 text-white-100"
+                    : "text-secondary hover:text-white-100 hover:bg-white/10"
+                }`}
+              >
+                {option.label}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
@@ -83,18 +158,7 @@ const Navbar = () => {
             ))}
           </ul>
 
-          <select
-            value={theme}
-            onChange={(event) => applyTheme(event.target.value)}
-            className='bg-tertiary text-white-100 border border-white/20 rounded-lg px-3 py-2 text-sm outline-none'
-            aria-label='Select theme'
-          >
-            {themeOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+          <ThemeMenu theme={theme} onChange={applyTheme} />
         </div>
 
         <div className='sm:hidden flex flex-1 justify-end items-center'>
@@ -112,18 +176,7 @@ const Navbar = () => {
           >
             <ul className='list-none flex justify-end items-start flex-1 flex-col gap-4'>
               <li className='w-full'>
-                <select
-                  value={theme}
-                  onChange={(event) => applyTheme(event.target.value)}
-                  className='w-full bg-tertiary text-white-100 border border-white/20 rounded-lg px-3 py-2 text-sm outline-none'
-                  aria-label='Select theme'
-                >
-                  {themeOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
+                <ThemeMenu theme={theme} onChange={applyTheme} fullWidth />
               </li>
               {navLinks.map((nav) => (
                 <li
