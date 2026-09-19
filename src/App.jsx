@@ -1,7 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
 
-import { About, Blog, Contact, Experience, Hero, Navbar, Studio, Tech, Works } from "./components";
+import { About, Blog, Contact, Experience, Hero, Navbar, Studio, StudioVSCode, Tech, Works } from "./components";
 
 const App = () => {
   return (
@@ -24,6 +24,8 @@ const App = () => {
           <Route path='/blog' element={<Blog />} />
           <Route path='/studio' element={<Studio />} />
           <Route path='/studio/:modelId' element={<Studio />} />
+          <Route path='/studio/vscode' element={<StudioVSCode />} />
+          <Route path='/studio/vscode/:modelId' element={<StudioVSCode />} />
           <Route
             path='/contact'
             element={

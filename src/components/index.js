@@ -8,6 +8,7 @@ import Works from "./Works";
 import Contact from "./Contact";
 import Blog from "./Blog";
 import Studio from "./Studio";
+import StudioVSCode from "./StudioVSCode";
 import CanvasLoader from "./Loader";
 
 
@@ -20,6 +21,7 @@ export {
   Works,
   Blog,
   Studio,
+  StudioVSCode,
   Contact,
   CanvasLoader,
   ChessboardCanvas, 
