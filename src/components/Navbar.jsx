@@ -140,11 +140,11 @@ const Navbar = () => {
           <img src={logo} alt='logo' className='w-9 h-9 object-contain' />
           <p className='text-white text-[18px] font-bold cursor-pointer flex '>
             Vikas Gowda &nbsp;
-            <span className='sm:block hidden'> | Full Stack Developer</span>
+            <span className='hidden 2xl:block'> | Full Stack AI Engineer</span>
           </p>
         </Link>
 
-        <div className='hidden sm:flex items-center gap-6'>
+        <div className='hidden xl:flex items-center gap-6'>
           <ul className='list-none flex flex-row gap-8'>
             {navLinks.map((nav) => (
               <li
@@ -161,7 +161,7 @@ const Navbar = () => {
           <ThemeMenu theme={theme} onChange={applyTheme} />
         </div>
 
-        <div className='sm:hidden flex flex-1 justify-end items-center'>
+        <div className='xl:hidden flex flex-1 justify-end items-center'>
           <img
             src={toggle ? close : menu}
             alt='menu'
