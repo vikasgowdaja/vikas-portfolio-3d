@@ -14,6 +14,8 @@ const ProjectCard = ({
   description,
   tags,
   image,
+  imagePosition,
+  project_link,
   source_code_link,
 }) => {
   return (
@@ -28,7 +30,9 @@ const ProjectCard = ({
         <div className='relative w-full h-[230px]'>
           <img
             src={image}
-            alt='project_image'
+            alt={name}
+            loading='lazy'
+            style={{ objectPosition: imagePosition || "center" }}
             className='w-full h-full object-cover rounded-2xl'
           />
 
@@ -54,6 +58,16 @@ const ProjectCard = ({
         <div className='mt-5'>
           <h3 className='text-white font-bold text-[24px]'>{name}</h3>
           <p className='mt-2 text-secondary text-[14px]'>{description}</p>
+          {project_link && (
+            <a
+              href={project_link}
+              target='_blank'
+              rel='noreferrer'
+              className='mt-4 inline-flex items-center gap-2 rounded border border-[#2de2c5]/40 px-3 py-2 text-[12px] font-semibold uppercase text-[#2de2c5] transition-colors hover:bg-[#2de2c5]/10'
+            >
+              Visit live site <span aria-hidden='true'>-&gt;</span>
+            </a>
+          )}
         </div>
 
         <div className='mt-4 flex flex-wrap gap-2'>
@@ -98,4 +112,4 @@ const Works = () => {
   );
 };
 
-export default SectionWrapper(Works, "");
+export default SectionWrapper(Works, "projects");

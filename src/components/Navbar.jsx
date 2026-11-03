@@ -93,6 +93,10 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [theme, setTheme] = useState("rainbow-night");
   const location = useLocation();
+  const isNavActive = (nav) => {
+    const currentLocation = `${location.pathname}${location.hash}`;
+    return nav.path === currentLocation || (!location.hash && nav.path === "/#home");
+  };
 
   const applyTheme = (nextTheme) => {
     document.documentElement.setAttribute("data-theme", nextTheme);
@@ -123,11 +127,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`${
-        styles.paddingX
-      } w-full flex items-center py-5 fixed top-0 z-20 ${
-        scrolled ? "bg-primary" : "bg-transparent"
-      }`}
+      className={`${styles.paddingX} fixed top-0 z-20 flex w-full items-center border-b border-[#2de2c5]/15 bg-[#050705]/95 py-4 backdrop-blur-xl ${scrolled ? "shadow-[0_8px_24px_rgba(0,0,0,0.35)]" : ""}`}
     >
       <div className='w-full flex justify-between items-center max-w-7xl mx-auto'>
         <Link
@@ -138,41 +138,46 @@ const Navbar = () => {
           }}
         >
           <img src={logo} alt='logo' className='w-9 h-9 object-contain' />
-          <p className='text-white text-[18px] font-bold cursor-pointer flex '>
-            Vikas Gowda &nbsp;
-            <span className='hidden 2xl:block'> | Full Stack AI Engineer</span>
+          <p className='flex cursor-pointer items-center gap-2 text-[16px] font-extrabold text-white sm:text-[18px]'>
+            <span className='text-[#2de2c5]'>&lt;&gt;</span> VIKAS GOWDA
+            <span className='hidden 2xl:block text-[12px] font-medium text-secondary'>| AI ENGINEER</span>
           </p>
         </Link>
 
-        <div className='hidden xl:flex items-center gap-6'>
-          <ul className='list-none flex flex-row gap-8'>
+        <div className='hidden items-center gap-7 xl:flex'>
+          <ul className='flex list-none flex-row gap-6'>
             {navLinks.map((nav) => (
               <li
                 key={nav.id}
                 className={`${
-                  location.pathname === nav.path ? "text-white-100" : "text-secondary"
-                } hover:text-white-100 text-[18px] font-medium cursor-pointer`}
+                  isNavActive(nav) ? "text-[#2de2c5]" : "text-secondary"
+                } cursor-pointer text-[12px] font-semibold uppercase hover:text-[#2de2c5]`}
               >
-                <Link to={nav.path}>{nav.title}</Link>
+                <a href={nav.path}>{nav.title}</a>
               </li>
             ))}
           </ul>
 
-          <ThemeMenu theme={theme} onChange={applyTheme} />
+          <a href='/#contact' className='button-secondary !px-4 !py-2 text-[11px]'>
+            Let&apos;s talk <span aria-hidden='true'>-&gt;</span>
+          </a>
         </div>
 
-        <div className='xl:hidden flex flex-1 justify-end items-center'>
-          <img
-            src={toggle ? close : menu}
-            alt='menu'
-            className='w-[28px] h-[28px] object-contain'
+        <div className='flex flex-1 items-center justify-end xl:hidden'>
+          <button
+            type='button'
+            aria-label={toggle ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={toggle}
             onClick={() => setToggle(!toggle)}
-          />
+            className='flex h-10 w-10 items-center justify-center'
+          >
+            <img src={toggle ? close : menu} alt='' className='h-7 w-7 object-contain' />
+          </button>
 
           <div
             className={`${
               !toggle ? "hidden" : "flex"
-            } p-6 black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}
+            } absolute right-0 top-16 z-10 mx-4 my-2 min-w-[220px] rounded-lg border border-[#2de2c5]/20 bg-[#080b08]/95 p-5 shadow-xl backdrop-blur-xl`}
           >
             <ul className='list-none flex justify-end items-start flex-1 flex-col gap-4'>
               <li className='w-full'>
@@ -181,14 +186,14 @@ const Navbar = () => {
               {navLinks.map((nav) => (
                 <li
                   key={nav.id}
-                  className={`font-poppins font-medium cursor-pointer text-[16px] ${
-                    location.pathname === nav.path ? "text-white" : "text-secondary"
+                  className={`cursor-pointer text-[14px] font-semibold uppercase ${
+                    isNavActive(nav) ? "text-[#2de2c5]" : "text-secondary"
                   }`}
                   onClick={() => {
                     setToggle(!toggle);
                   }}
                 >
-                  <Link to={nav.path}>{nav.title}</Link>
+                  <a href={nav.path}>{nav.title}</a>
                 </li>
               ))}
             </ul>

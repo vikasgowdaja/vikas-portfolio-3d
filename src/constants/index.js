@@ -32,27 +32,27 @@ export const navLinks = [
   {
     id: "home",
     title: "Home",
-    path: "/",
+    path: "/#home",
   },
   {
     id: "about",
     title: "About",
-    path: "/about",
+    path: "/#about",
   },
   {
     id: "experience",
     title: "Experience",
-    path: "/experience",
+    path: "/#experience",
   },
   {
     id: "tech",
-    title: "Tech",
-    path: "/tech",
+    title: "Skills",
+    path: "/#skills",
   },
   {
     id: "work",
-    title: "Work",
-    path: "/work",
+    title: "Projects",
+    path: "/#projects",
   },
   {
     id: "blog",
@@ -60,14 +60,9 @@ export const navLinks = [
     path: "/blog",
   },
   {
-    id: "studio",
-    title: "Studio",
-    path: "/studio",
-  },
-  {
     id: "contact",
     title: "Contact",
-    path: "/contact",
+    path: "/#contact",
   },
 ];
 
@@ -147,21 +142,9 @@ const technologies = [
 
 const experiences = [
   {
-    title: "Freelance Technical Trainer - AngularJS & Angular",
-    company_name: "Engineering College Program (6th-semester students)",
-    icon: creator,
-    iconBg: "#dff6f1",
-    date: "November 2 - 7, 2026 | Mysuru",
-    points: [
-      "Delivering a six-day, hands-on AngularJS program covering modules, controllers, directives, services, filters, routing, forms, and REST API integration.",
-      "Bridging AngularJS concepts to modern Angular with TypeScript, components, dependency injection, RxJS, and Angular CLI.",
-      "Guiding students through a mini-project that consumes a REST backend, supported by daily live coding.",
-    ],
-  },
-  {
     title: "Senior Software Engineer - AI & Full Stack",
-    company_name: "Ancile Digital (deployed at Version 1; client: International Schools Partnership)",
-    icon: ancile,
+    company_name: "Version 1 (via Ancile Digital) - Client: International Schools Partnership",
+    icon: version1,
     iconBg: "#dff6f1",
     date: "April 2025 - Present | Bengaluru",
     points: [
@@ -209,6 +192,72 @@ const experiences = [
 ];
 
 const projects = [
+  {
+    name: "Connect2EdTech - Skills & Career Platform",
+    description:
+      "Education platform for industry-focused technical and non-technical courses, mentor guidance, trainer applications, certifications, and placement support.",
+    tags: [
+      {
+        name: "edtech",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "career-development",
+        color: "green-text-gradient",
+      },
+      {
+        name: "mentorship",
+        color: "pink-text-gradient",
+      },
+    ],
+    image: "/projects/connect2edtech-connect2future.gif",
+    imagePosition: "center top",
+    project_link: "https://connect2edtech.connect2future.com/",
+  },
+  {
+    name: "Zentrax Constructions - Property & Building Services",
+    description:
+      "Construction and property platform covering residential and commercial spaces, architecture and interior design, construction, facility maintenance, property listings, and workforce support.",
+    tags: [
+      {
+        name: "construction",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "architecture",
+        color: "green-text-gradient",
+      },
+      {
+        name: "property-services",
+        color: "pink-text-gradient",
+      },
+    ],
+    image: "/projects/zentraxconstructions.gif",
+    imagePosition: "center",
+    project_link: "https://zentraxconstructions.com/",
+  },
+  {
+    name: "Connect2Air - Aerial LED Advertising",
+    description:
+      "Aerial advertising platform for synchronized LED-drone displays, live events, brand launches, and campaign planning, with service packages, a drone catalog, and enquiry flows.",
+    tags: [
+      {
+        name: "drone-led",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "aerial-advertising",
+        color: "green-text-gradient",
+      },
+      {
+        name: "campaign-planning",
+        color: "pink-text-gradient",
+      },
+    ],
+    image: "/projects/Connect2air.gif",
+    imagePosition: "center top",
+    project_link: "https://connect2air.in/",
+  },
   {
     name: "InsightDesk - AI Analytics Dashboard",
     description:
@@ -402,12 +451,16 @@ const certifications = [
     name: "Frontend Developer (React)",
     issuer: "HackerRank",
     date: "Issued Mar 2025",
+    image: "/certifications/hackerrank.svg",
+    imageAlt: "HackerRank icon",
     url: "https://www.hackerrank.com/certificates/iframe/71740828e3e0",
   },
   {
     name: "Node.js Intermediate",
     issuer: "HackerRank",
     date: "Issued Mar 2025",
+    image: "/certifications/hackerrank.svg",
+    imageAlt: "HackerRank icon",
     url: "https://www.hackerrank.com/certificates/iframe/7b823c566aec",
   },
   {

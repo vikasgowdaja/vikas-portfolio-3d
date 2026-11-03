@@ -2,6 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
 
 import { About, Blog, Contact, Experience, Hero, Navbar, Studio, StudioVSCode, Tech, Works } from "./components";
+import PortfolioHome from "./components/PortfolioHome";
 
 const App = () => {
   return (
@@ -9,14 +10,7 @@ const App = () => {
       <div className='relative z-0 bg-primary app-shell'>
         <Navbar />
         <Routes>
-          <Route
-            path='/'
-            element={
-              <div className='hero-shell'>
-                <Hero />
-              </div>
-            }
-          />
+          <Route path='/' element={<PortfolioHome />} />
           <Route path='/about' element={<About />} />
           <Route path='/experience' element={<Experience />} />
           <Route path='/tech' element={<Tech />} />

@@ -16,10 +16,13 @@ const ExperienceCard = ({ experience }) => {
   return (
     <VerticalTimelineElement
       contentStyle={{
-        background: "#0b2d2a",
+        background: "#082e2b",
         color: "#fff",
+        border: "1px solid rgba(45, 212, 191, 0.28)",
+        boxShadow: "0 14px 40px rgba(0, 0, 0, 0.28)",
       }}
-      contentArrowStyle={{ borderRight: "7px solid #185047" }}
+      contentArrowStyle={{ borderRight: "7px solid #0f766e" }}
+      dateClassName='experience-date'
       date={experience.date}
       iconStyle={{ background: experience.iconBg }}
       icon={
@@ -35,7 +38,7 @@ const ExperienceCard = ({ experience }) => {
       <div>
         <h3 className='text-white text-[24px] font-bold'>{experience.title}</h3>
         <p
-          className='text-secondary text-[16px] font-semibold'
+          className='text-[#2de2c5] text-[16px] font-semibold'
           style={{ margin: 0 }}
         >
           {experience.company_name}
@@ -60,7 +63,7 @@ const Experience = () => {
   return (
     <>
       <motion.div variants={textVariant()}>
-        <p className={`${styles.sectionSubText} text-center`}>
+        <p className={`${styles.sectionSubText} text-center text-[#2de2c5]`}>
           What I have done so far
         </p>
         <h2 className={`${styles.sectionHeadText} text-center`}>
@@ -69,7 +72,7 @@ const Experience = () => {
       </motion.div>
 
       <div className='mt-20 flex flex-col'>
-        <VerticalTimeline>
+        <VerticalTimeline className='experience-timeline'>
           {experiences.map((experience, index) => (
             <ExperienceCard
               key={`experience-${index}`}
@@ -82,4 +85,4 @@ const Experience = () => {
   );
 };
 
-export default SectionWrapper(Experience, "work");
+export default SectionWrapper(Experience, "experience");

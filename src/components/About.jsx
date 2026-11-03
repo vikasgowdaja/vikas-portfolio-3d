@@ -98,21 +98,25 @@ const About = () => {
         ))}
       </div>
 
-      <div className='mt-20 grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]'>
-        <section>
-          <h3 className='text-white text-[24px] font-bold'>Education</h3>
-          <p className='mt-4 text-secondary text-[16px]'>{education.program}</p>
-          <p className='mt-1 text-white text-[18px] font-semibold'>{education.institution}</p>
-          <p className='mt-2 text-secondary text-[14px]'>{education.date}</p>
-          <p className='mt-1 text-white-100 text-[14px]'>{education.result}</p>
-        </section>
-
+      <div className='mt-20'>
         <section>
           <h3 className='text-white text-[24px] font-bold'>Certifications</h3>
-          <div className='mt-4 grid gap-4 sm:grid-cols-2'>
+          <div className='mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
             {certifications.map((certification) => (
               <CertificationCard key={certification.name} certification={certification} />
             ))}
+          </div>
+        </section>
+
+        <section className='mt-14 border-t border-[#2de2c5]/15 pt-8'>
+          <h3 className='text-white text-[24px] font-bold'>Education</h3>
+          <div className='mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_auto_auto] lg:items-end lg:gap-8'>
+            <div>
+              <p className='text-white text-[18px] font-semibold'>{education.program}</p>
+              <p className='mt-1 text-secondary text-[15px]'>{education.institution}</p>
+            </div>
+            <p className='text-secondary text-[14px]'>{education.date}</p>
+            <p className='text-white-100 text-[14px]'>{education.result}</p>
           </div>
         </section>
       </div>
