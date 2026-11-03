@@ -15,7 +15,7 @@ import {
   NotebookCanvas,
   PenCanvas,
   PhoneOnlyCanvas,
-  SolarPanelOnlyCanvas,
+  LaptopStandOnlyCanvas,
 } from "./canvas";
 import laptopSource from "./canvas/Laptop.jsx?raw";
 import deskAssetsSource from "./canvas/DeskAssets.jsx?raw";
@@ -26,7 +26,7 @@ import mouseSource from "./canvas/Mouse.jsx?raw";
 import bottleSource from "./canvas/Bottle.jsx?raw";
 import notebookSource from "./canvas/Notebook.jsx?raw";
 import penSource from "./canvas/Pen.jsx?raw";
-import solarPanelSource from "./canvas/SolarPanel.jsx?raw";
+import laptopStandSource from "./canvas/LaptopStand.jsx?raw";
 
 const MODEL_LIBRARY = [
   {
@@ -100,10 +100,10 @@ const MODEL_LIBRARY = [
     kind: "3d",
   },
   {
-    id: "solar-panel",
-    name: "Solar Panel",
-    category: "Energy",
-    description: "Tilt-mounted photovoltaic module with cell grid and support frame",
+    id: "laptop-stand",
+    name: "Laptop Stand + RGB Cooling Pad",
+    category: "Accessories",
+    description: "Seven-angle folding aluminum stand with an open laptop and illuminated dual-fan cooling pad",
     kind: "3d",
   },
 ];
@@ -119,7 +119,7 @@ const MODEL_COMPONENTS = {
   mouse: MouseCanvas,
   headphones: HeadphonesOnlyCanvas,
   chessboard: ChessboardCanvas,
-  "solar-panel": SolarPanelOnlyCanvas,
+  "laptop-stand": LaptopStandOnlyCanvas,
 };
 
 const MODEL_BUILD_PLAN = [
@@ -195,11 +195,11 @@ const MODEL_FILE_REFERENCES = [
     models: ["pen"],
   },
   {
-    path: "src/components/canvas/SolarPanel.jsx",
-    size: "~5 KB",
+    path: "src/components/canvas/LaptopStand.jsx",
+    size: "~7 KB",
     tone: "model",
-    impact: "Photovoltaic cell array, aluminum frame, rear junction box, and adjustable mount.",
-    models: ["solar-panel"],
+    impact: "Adjustable aluminum rails, hinge arms, an open laptop, and an RGB dual-fan cooling pad.",
+    models: ["laptop-stand"],
   },
 ];
 
@@ -215,7 +215,7 @@ const MODEL_FOLDER_TREE = [
   "      Bottle.jsx",
   "      Notebook.jsx",
   "      Pen.jsx",
-  "      SolarPanel.jsx",
+  "      LaptopStand.jsx",
   "      Chessboard.jsx",
   "      index.js",
   "  utils/",
@@ -236,7 +236,7 @@ const DEFAULT_LAYOUT = {
   mouse: { x: 60, y: 62 },
   headphones: { x: 26, y: 46 },
   chessboard: { x: 52, y: 35 },
-  "solar-panel": { x: 74, y: 44 },
+  "laptop-stand": { x: 72, y: 48 },
 };
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -252,7 +252,7 @@ const REFERENCE_FILE_CONTENT = {
   "src/components/canvas/Bottle.jsx": bottleSource,
   "src/components/canvas/Notebook.jsx": notebookSource,
   "src/components/canvas/Pen.jsx": penSource,
-  "src/components/canvas/SolarPanel.jsx": solarPanelSource,
+  "src/components/canvas/LaptopStand.jsx": laptopStandSource,
 };
 
 const toneClassByType = {

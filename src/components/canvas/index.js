@@ -16,7 +16,7 @@ import {
 	NotebookOnlyCanvas,
 	PenOnlyCanvas,
 	PhoneOnlyCanvas,
-	SolarPanelOnlyCanvas,
+	LaptopStandOnlyCanvas,
 } from "./DeskAssets";
 
 export {
@@ -37,5 +37,5 @@ export {
 	PhoneOnlyCanvas,
 	MouseOnlyCanvas,
 	HeadphonesOnlyCanvas,
-	SolarPanelOnlyCanvas,
+	LaptopStandOnlyCanvas,
 };
