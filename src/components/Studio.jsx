@@ -15,6 +15,7 @@ import {
   NotebookCanvas,
   PenCanvas,
   PhoneOnlyCanvas,
+  SolarPanelOnlyCanvas,
 } from "./canvas";
 import laptopSource from "./canvas/Laptop.jsx?raw";
 import deskAssetsSource from "./canvas/DeskAssets.jsx?raw";
@@ -25,6 +26,7 @@ import mouseSource from "./canvas/Mouse.jsx?raw";
 import bottleSource from "./canvas/Bottle.jsx?raw";
 import notebookSource from "./canvas/Notebook.jsx?raw";
 import penSource from "./canvas/Pen.jsx?raw";
+import solarPanelSource from "./canvas/SolarPanel.jsx?raw";
 
 const MODEL_LIBRARY = [
   {
@@ -97,6 +99,13 @@ const MODEL_LIBRARY = [
     description: "Interactive board prop",
     kind: "3d",
   },
+  {
+    id: "solar-panel",
+    name: "Solar Panel",
+    category: "Energy",
+    description: "Tilt-mounted photovoltaic module with cell grid and support frame",
+    kind: "3d",
+  },
 ];
 
 const MODEL_COMPONENTS = {
@@ -110,6 +119,7 @@ const MODEL_COMPONENTS = {
   mouse: MouseCanvas,
   headphones: HeadphonesOnlyCanvas,
   chessboard: ChessboardCanvas,
+  "solar-panel": SolarPanelOnlyCanvas,
 };
 
 const MODEL_BUILD_PLAN = [
@@ -184,6 +194,13 @@ const MODEL_FILE_REFERENCES = [
     impact: "Standalone pen canvas route wrapper.",
     models: ["pen"],
   },
+  {
+    path: "src/components/canvas/SolarPanel.jsx",
+    size: "~5 KB",
+    tone: "model",
+    impact: "Photovoltaic cell array, aluminum frame, rear junction box, and adjustable mount.",
+    models: ["solar-panel"],
+  },
 ];
 
 const MODEL_FOLDER_TREE = [
@@ -198,6 +215,7 @@ const MODEL_FOLDER_TREE = [
   "      Bottle.jsx",
   "      Notebook.jsx",
   "      Pen.jsx",
+  "      SolarPanel.jsx",
   "      Chessboard.jsx",
   "      index.js",
   "  utils/",
@@ -218,6 +236,7 @@ const DEFAULT_LAYOUT = {
   mouse: { x: 60, y: 62 },
   headphones: { x: 26, y: 46 },
   chessboard: { x: 52, y: 35 },
+  "solar-panel": { x: 74, y: 44 },
 };
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -233,6 +252,7 @@ const REFERENCE_FILE_CONTENT = {
   "src/components/canvas/Bottle.jsx": bottleSource,
   "src/components/canvas/Notebook.jsx": notebookSource,
   "src/components/canvas/Pen.jsx": penSource,
+  "src/components/canvas/SolarPanel.jsx": solarPanelSource,
 };
 
 const toneClassByType = {

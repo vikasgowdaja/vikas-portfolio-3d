@@ -14,6 +14,7 @@ import mouseSource from "./canvas/Mouse.jsx?raw";
 import bottleSource from "./canvas/Bottle.jsx?raw";
 import notebookSource from "./canvas/Notebook.jsx?raw";
 import penSource from "./canvas/Pen.jsx?raw";
+import solarPanelSource from "./canvas/SolarPanel.jsx?raw";
 
 const MODEL_LIBRARY = [
   { id: "laptop", name: "Laptop" },
@@ -26,6 +27,7 @@ const MODEL_LIBRARY = [
   { id: "mouse", name: "Mouse" },
   { id: "headphones", name: "Headphones" },
   { id: "chessboard", name: "Chessboard" },
+  { id: "solar-panel", name: "Solar Panel" },
 ];
 
 const MODEL_FILE_REFERENCES = [
@@ -39,6 +41,7 @@ const MODEL_FILE_REFERENCES = [
   { path: "src/components/canvas/Bottle.jsx", size: "<1 KB", tone: "model", models: ["bottle"] },
   { path: "src/components/canvas/Notebook.jsx", size: "<1 KB", tone: "model", models: ["notebook"] },
   { path: "src/components/canvas/Pen.jsx", size: "<1 KB", tone: "model", models: ["pen"] },
+  { path: "src/components/canvas/SolarPanel.jsx", size: "~5 KB", tone: "model", models: ["solar-panel"] },
 ];
 
 const REFERENCE_FILE_CONTENT = {
@@ -52,6 +55,7 @@ const REFERENCE_FILE_CONTENT = {
   "src/components/canvas/Bottle.jsx": bottleSource,
   "src/components/canvas/Notebook.jsx": notebookSource,
   "src/components/canvas/Pen.jsx": penSource,
+  "src/components/canvas/SolarPanel.jsx": solarPanelSource,
 };
 
 const getFolderFromPath = (filePath) => filePath.split("/").slice(0, -1).join("/");

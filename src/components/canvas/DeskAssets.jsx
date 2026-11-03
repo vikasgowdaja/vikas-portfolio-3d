@@ -17,6 +17,7 @@ import {
   getActiveThemeName,
   getSceneLighting,
 } from "./Laptop";
+import { SolarPanelModel } from "./SolarPanel";
 
 const PreviewLights = ({ lights }) => {
   return (
@@ -86,6 +87,16 @@ export const DeskOnlyCanvas = () => {
     <PreviewCanvas camera={{ position: [8.8, 3.6, 9.2], fov: 25 }} target={[0, -0.28, 0.2]}>
       <group scale={0.9} position={[0, -0.35, 0]} rotation={[0.03, -0.25, -0.01]}>
         <DeskBaseModel />
+      </group>
+    </PreviewCanvas>
+  );
+};
+
+export const SolarPanelOnlyCanvas = () => {
+  return (
+    <PreviewCanvas camera={{ position: [5.8, 4.5, 6.8], fov: 30 }} target={[0, 1.15, 0]}>
+      <group scale={0.9} rotation={[0, -0.28, 0]}>
+        <SolarPanelModel />
       </group>
     </PreviewCanvas>
   );
